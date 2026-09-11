@@ -3,16 +3,19 @@
   "symbol": "≒",
   "data_url": "data.json",
   "level_order": [
-    "NO SONG","sl-","sl0", "sl1", "sl2", "sl3", "sl4", "sl5",
-    "st1", "st2", "st3", "st4", "st5",
-    "st6", "st7", "st8", "st9", "st10", "st11", "st12","st+",
+    "NO SONG","sl-","sl0", "sl1", "sl2", "sl3", "sl4",
+    "sl5","sl6", "sl7", "sl8", "sl9", "sl10", "sl11","sl12",
+    "st0","st1", "st2", "st3", "st4", "st5","st6", 
+    "st7", "st8", "st9", "st10", "st11", "st12","st+",
     "LN", "SC","?"
   ],  
-  "foplder_order": [
-    "NO SONG","sl-","sl0", "sl1", "sl2", "sl3", "sl4", "sl5",
-    "st1", "st2", "st3", "st4", "st5",
-    "st6", "st7", "st8", "st9", "st10", "st11", "st12","st+",
+  "folder_order": [
+    "NO SONG","sl-","sl0", "sl1", "sl2", "sl3", "sl4",
+    "sl5","sl6", "sl7", "sl8", "sl9", "sl10", "sl11","sl12",
+    "st0","st1", "st2", "st3", "st4", "st5","st6", 
+    "st7", "st8", "st9", "st10", "st11", "st12","st+",
     "LN", "SC","?"
-  ],
-  "folder_sort_key": ""
+  ],  
+  "folder_sort_key": "",
+  "folder_sort_ascending": true
 }

@@ -1,5 +1,23 @@
 let LEVEL_ORDER = []; // 用于存储 header.json 里的 level_order 排序规则
 
+// Tag 列排序权重（按第一个标签）
+const TAG_ORDER = [
+    "LN",
+    "SC",
+    "SB",
+    "6K",
+    "8K",
+    "未収録",
+    "FAILED",
+];
+
+function tagWeight(tagStr) {
+    if (!tagStr) return 9999;
+    const first = String(tagStr).split("/")[0].trim();
+    const idx = TAG_ORDER.indexOf(first);
+    return idx === -1 ? 5000 : idx;
+}
+
 const App = {
     filtered: [],
 
@@ -14,18 +32,17 @@ const App = {
 
         const header = DataStore.header || {};
 
-        // 读取 header.json 里的 level_order 存入全局变量
         if (header.level_order && Array.isArray(header.level_order)) {
             LEVEL_ORDER = header.level_order;
         }
 
         const tableName = document.getElementById("table-name");
-        // 不再显示 Symbol，仅设置标题
         if (header.name) tableName.textContent = header.name;
 
         Table.init();
         this.initFilterOptions();
         this.bindEvents();
+        await this.loadAbout();        // ★ 新增
 
         const sortKey = CONFIG.defaultSort.key;
         const sortOrder = CONFIG.defaultSort.order;
@@ -35,10 +52,30 @@ const App = {
         this.refresh();
     },
 
+    // ★ 新增方法
+    async loadAbout() {
+        const aboutContent = document.getElementById("about-content");
+        if (!aboutContent) return;
+
+        try {
+            const res = await fetch("README.md");
+            if (!res.ok) throw new Error(`README.md load failed: ${res.status}`);
+            const md = await res.text();
+
+            if (typeof marked !== "undefined") {
+                aboutContent.innerHTML = marked.parse(md);
+            } else {
+                aboutContent.textContent = md;
+            }
+        } catch (e) {
+            aboutContent.innerHTML =
+                `<p class="error">Failed to load README.md: ${e.message}</p>`;
+        }
+    },
+
     initFilterOptions() {
         const levelSelect = document.getElementById("filter-level");
 
-        // 优先使用 header.json 里的 level_order 生成下拉菜单
         if (LEVEL_ORDER.length > 0) {
             for (const level of LEVEL_ORDER) {
                 const opt = document.createElement("option");
@@ -47,7 +84,6 @@ const App = {
                 levelSelect.appendChild(opt);
             }
         } else {
-            // 备用方案：如果 header.json 没读到，按数据里出现的顺序
             for (const level of DataStore.getAllLevels()) {
                 const opt = document.createElement("option");
                 opt.value = level;
@@ -80,8 +116,6 @@ const App = {
             Pagination.reset();
             this.refresh();
         });
-
-        // 已移除 filter-comment 绑定
 
         let searchTimer = null;
         document.getElementById("search-input").addEventListener("input", e => {
@@ -132,6 +166,7 @@ const App = {
                 const nextOrder = current === "asc" ? "desc" : "asc";
                 this.sortSongs(key, nextOrder);
                 this.updateSortIndicators(key, nextOrder);
+                Pagination.reset();
                 this.refresh();
             });
         });
@@ -145,18 +180,28 @@ const App = {
             const vb = b[key] || "";
 
             if (key === "level") {
-                // 使用 header.json 里的 level_order 索引作为排序权重
                 let indexA = LEVEL_ORDER.indexOf(va);
                 let indexB = LEVEL_ORDER.indexOf(vb);
-
-                // 如果数据里的 level 不在 header.json 列表里，放到最后
                 if (indexA === -1) indexA = 9999;
                 if (indexB === -1) indexB = 9999;
-
                 return (indexA - indexB) * dir;
             }
 
-            return String(va).localeCompare(String(vb), "ja") * dir;
+            if (key === "chart_tag") {
+                if (!va && !vb) return 0;
+                if (!va) return 1;
+                if (!vb) return -1;
+                return (tagWeight(va) - tagWeight(vb)) * dir;
+            }
+
+            if (key === "comment") {
+                if (!va && !vb) return 0;
+                if (!va) return 1;
+                if (!vb) return -1;
+                return String(va).localCompare(String(vb), "ja") * dir;
+            }
+
+            return String(va).localCompare(String(vb), "ja") * dir;
         });
     },
 

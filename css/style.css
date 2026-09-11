@@ -304,6 +304,109 @@ tbody tr:hover {
     font-size: 13px;
 }
 
+
+.about-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0;
+    margin-bottom: 16px;
+}
+
+.about-panel > summary {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.about-panel > summary::before {
+    content: "▶";
+    font-size: 10px;
+    transition: transform .15s;
+}
+
+.about-panel[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.about-panel > summary:hover {
+    color: var(--accent);
+}
+
+.about-content {
+    padding: 0 16px 16px 16px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.about-content h1,
+.about-content h2,
+.about-content h3 {
+    margin: 16px 0 8px;
+    font-weight: 700;
+}
+
+.about-content h1 { font-size: 18px; }
+.about-content h2 { font-size: 16px; }
+.about-content h3 { font-size: 14px; }
+
+.about-content table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 8px 0;
+    font-size: 12px;
+    table-layout: auto;   /* About 里的表格不用固定列宽 */
+}
+
+.about-content th,
+.about-content td {
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.about-content th {
+    background: #f1f3f5;
+}
+
+.about-content code {
+    background: #f1f3f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 12px;
+}
+
+.about-content pre {
+    background: #f1f3f5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 12px;
+}
+
+.about-content ul {
+    padding-left: 20px;
+}
+
+.about-content .loading {
+    color: var(--text-muted);
+}
+
+.about-content .error {
+    color: var(--danger);
+}
+
 /* ============ 响应式 ============ */
 @media (max-width: 720px) {
     .site-header {

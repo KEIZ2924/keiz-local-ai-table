@@ -29,7 +29,7 @@ PLAYLIST_ID_6K = 108
 PLAYLIST_ID_8K = 109
 
 # ============ NO SONG 来源 playlist 白名单 ============
-NO_SONG_PLAYLIST_IDS: set[int] = {51, 54, 61, 62, 82, 87, 100, 103, 107}
+NO_SONG_PLAYLIST_IDS: set[int] = {51, 54, 61, 62, 82, 87,92,100, 103, 107}
 
 
 @dataclass

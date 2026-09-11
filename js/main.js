@@ -198,10 +198,10 @@ const App = {
                 if (!va && !vb) return 0;
                 if (!va) return 1;
                 if (!vb) return -1;
-                return String(va).localCompare(String(vb), "ja") * dir;
+                return String(va).localeCompare(String(vb), "ja") * dir;
             }
 
-            return String(va).localCompare(String(vb), "ja") * dir;
+            return String(va).localeCompare(String(vb), "ja") * dir;
         });
     },
 

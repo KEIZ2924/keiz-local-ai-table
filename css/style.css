@@ -1,0 +1,330 @@
+/* ============ 基础 ============ */
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f5f6f8;
+    --panel: #ffffff;
+    --border: #d9dde3;
+    --text: #202428;
+    --text-muted: #6b7280;
+    --accent: #3b82f6;
+    --accent-weak: #e0edff;
+    --danger: #ef4444;
+    --row-alt: #fafbfc;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
+                 "Hiragino Sans", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5;
+}
+
+/* ============ 布局 ============ */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.site-header {
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.site-header .meta {
+    color: var(--text-muted);
+    font-size: 13px;
+    display: flex;
+    gap: 16px;
+}
+
+.site-footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 24px 16px;
+}
+
+/* ============ 筛选栏 ============ */
+.filters {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 120px;
+}
+
+.filter-group.grow {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fff;
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+    transition: border-color .15s;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    border-color: var(--accent);
+}
+
+.btn {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fff;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+}
+
+.btn:hover:not(:disabled) {
+    background: var(--accent-weak);
+    border-color: var(--accent);
+}
+
+.btn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+/* ============ 表格 ============ */
+.table-wrap {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: fixed;   /* 固定列宽 */
+}
+
+/* 列宽分配 */
+.col-level   { width: 80px; }
+.col-title   { width: 30%; }
+.col-artist  { width: 20%; }
+.col-tag     { width: 18%; }
+.col-comment { width: auto; }  /* 剩余全部给 Comment */
+
+thead th {
+    text-align: left;
+    padding: 10px 12px;
+    background: #f1f3f5;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    user-select: none;
+}
+
+thead th.sortable {
+    cursor: pointer;
+}
+
+thead th.sortable:hover {
+    color: var(--accent);
+}
+
+thead th.sortable::after {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    margin-left: 4px;
+    color: var(--text-muted);
+}
+
+thead th.sortable[data-order="asc"]::after {
+    content: "▲";
+    font-size: 9px;
+}
+
+thead th.sortable[data-order="desc"]::after {
+    content: "▼";
+    font-size: 9px;
+}
+
+tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eef1f4;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+tbody tr:nth-child(even) {
+    background: var(--row-alt);
+}
+
+tbody tr:hover {
+    background: var(--accent-weak);
+}
+
+/* Title 超链接 */
+.title-link {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+    transition: color .15s, border-color .15s;
+}
+
+.title-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* level 徽标 */
+.level-badge {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #e5e7eb;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.level-badge.level-ln { background: #dbeafe; color: #1d4ed8; }
+.level-badge.level-sc { background: #fef3c7; color: #b45309; }
+.level-badge.level-nosong { background: #fee2e2; color: #b91c1c; }
+.level-badge.level-unknown { background: #e5e7eb; color: #4b5563; font-weight: 700; }
+
+/* tag 徽标 */
+.tag-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    margin: 1px 2px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: #ede9fe;
+    color: #6d28d9;
+    white-space: nowrap;
+}
+
+.tag-badge.tag-unrecorded {
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+.tag-badge.tag-failed {
+    background: #e5e7eb;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+.comment-unrecorded {
+    color: var(--danger);
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.empty-state {
+    padding: 48px 16px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* ============ 分页 ============ */
+.pagination {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.pagination #page-info {
+    padding: 0 12px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.pagination label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 8px;
+}
+
+.pagination select {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fff;
+    font-size: 13px;
+}
+
+/* ============ 响应式 ============ */
+@media (max-width: 720px) {
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group,
+    .filter-group.grow {
+        min-width: 0;
+    }
+
+    /* 窄屏时重新分配列宽 */
+    .col-level   { width: 60px; }
+    .col-title   { width: 40%; }
+    .col-artist  { width: 25%; }
+    .col-tag     { width: 20%; }
+    .col-comment { width: auto; }
+}

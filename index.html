@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="bmstable" content="header.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMS Difficulty Table</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1 id="table-name">BMS Difficulty Table</h1>
+        <div class="meta">
+            <span id="total-count"></span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="filters">
+            <div class="filter-group">
+                <label for="filter-level">Level</label>
+                <select id="filter-level">
+                    <option value="">All</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="filter-tag">Tag</label>
+                <select id="filter-tag">
+                    <option value="">All</option>
+                </select>
+            </div>
+
+            <div class="filter-group grow">
+                <label for="search-input">Search</label>
+                <input type="text" id="search-input" placeholder="Title / Artist / MD5">
+            </div>
+
+            <button id="reset-btn" class="btn">Reset</button>
+        </section>
+
+        <section class="table-wrap">
+            <table id="song-table">
+                <thead>
+                    <tr>
+                        <th data-sort="level" class="sortable col-level">Level</th>
+                        <th data-sort="title" class="sortable col-title">Title</th>
+                        <th data-sort="artist" class="sortable col-artist">Artist</th>
+                        <th data-sort="chart_tag" class="sortable col-tag">Tag</th>
+                        <th data-sort="comment" class="sortable col-comment">Comment</th>
+                    </tr>
+                </thead>
+                <tbody id="song-tbody"></tbody>
+            </table>
+            <div id="empty-state" class="empty-state" hidden>No songs match your filters</div>
+        </section>
+
+        <nav class="pagination">
+            <button id="first-page" class="btn">« First</button>
+            <button id="prev-page" class="btn">‹ Prev</button>
+            <span id="page-info">Page 1 / 1</span>
+            <button id="next-page" class="btn">Next ›</button>
+            <button id="last-page" class="btn">Last »</button>
+
+            <label for="page-size">Per page</label>
+            <select id="page-size">
+                <option value="25">25</option>
+                <option value="50" selected>50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+            </select>
+        </nav>
+    </main>
+
+    <footer class="site-footer">
+        <span id="footer-info"></span>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/pagination.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
